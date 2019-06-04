@@ -10,9 +10,22 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/service/infoService.js"></script>
+	<script type="text/javascript" src="js/service/loginService.js"></script>
+	<script type="text/javascript" src="js/service/uploadService.js"></script>
+	<script type="text/javascript" src="js/controller/infoController.js"></script>
+	<!-- 引入select2的相关的css和js -->
+	<link rel="stylesheet" href="plugins/select2/select2.css" />
+	<link rel="stylesheet" href="plugins/select2/select2-bootstrap.css" />
+	<script src="plugins/select2/select2.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/angular-select2.js">  </script>
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="infoController" ng-init="initial()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -167,7 +180,7 @@ $(function(){
                     <div class="person-info">
                         <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
                         <div class="person-account">
-                            <span class="name">Michelle</span>
+                            <span class="name" >{{entity.username}}</span>
                             <span class="safe">账户安全</span>
                         </div>
                         <div class="clearfix"></div>
@@ -210,76 +223,110 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputName" class="control-label">昵称：</label>
                                         <div class="controls">
-                                            <input type="text" id="inputName" name="email" placeholder="昵称">
+                                            <input type="text" id="inputName" name="email" ng-model="entity.nickName" placeholder="昵称">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label for="inputGender" class="control-label">性别：</label>
-                                        <div class="controls">
-                                            <label data-toggle="radio" class="radio-pretty inline">
-                                            <input type="radio" name="gender" value="1"><span>男</span>
-                                        </label>
-                                            <label data-toggle="radio" class="radio-pretty inline">
-                                            <input type="radio" name="gender" value="2"><span>女</span>
-                                        </label>
+                                        <div class="controls" >
+                                            <label data-toggle="radio"  >
+
+											   <input type="radio" name="gender" value="1" ng-checked="judgeChecked('1')"><span>男</span>
+										    </label>
+                                            <label data-toggle="radio">
+                                               <input type="radio" name="gender" value="2" ng-checked="judgeChecked('2')"><span>女</span>
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label for="inputPassword" class="control-label">生日：</label>
-                                        <div class="controls">
-                                            <select id="select_year2" rel="1990"></select>年
-                                            <select id="select_month2" rel="4"></select>月
-                                            <select id="select_day2" rel="3"></select>日
-                                        </div>
+                                       <label for="inputPassword" class="control-label">生日：</label>
+										<!-- <div class="controls" >
+                                            <select id="select_year2" rel="2015" ></select>年
+                                            <select id="select_month2" rel="5"></select>月
+                                            <select id="select_day2" rel="1" ></select>日
+                                        </div>-->
+										<input type="date" Value="{{entity.birthdayStr}}">
                                     </div>
 
 
                                     <div class="control-group">
                                         <label for="inputPassword" class="control-label">所在地：</label>
                                         <div class="controls">
-                                            <div data-toggle="distpicker">
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
-                                                </div>
+                                            <div >
+                                             <div  >
+                                               <!--     <select   class="form-control select-sm" ng-options= "province.id as province.city for province in  provinceMap" ></select>
+-->
+												 <table>
+													 <tr>
+															<td >
+															 <select class="form-control select-sm"  ng-model="provinceStr" ng-options="province.provinceid as province.province for province in provinceList"
+															 	ng-change="cityStr='';areaStr=''">
+															 </select>
+															</td>
+														 <td>
+															 <select class="form-control select-sm"   ng-model="cityStr" ng-options="city.cityid as city.city for city in cityList">
+															 </select>
+														 </td>
+														 <td>
+															 <select class="form-control select-sm"   ng-model="areaStr" ng-options="area.areaid as area.area for area in areasList">
+															 </select>
+														 </td>
+
+														 <!--<td>
+															 <select class="form-control select-sm"  ng-model="entity.goods.category2Id" ng-options="item.id as item.name for item in itemCat2List"></select>
+														 </td>
+														 <td>
+															 <select class="form-control select-sm" ng-model="entity.goods.category3Id" ng-options="item.id as item.name for item in itemCat3List"></select>
+														 </td>
+														 <td>
+															 模板ID:{{entity.goods.typeTemplateId}}
+														 </td>&ndash;&gt; -->
+													 </tr>
+												 </table>
+
+												 　　　
+												 　　　　　　　
+
+											 </div>
+												<!--       <div class="form-group area">
+                                                        <select class="form-control" id="city1"></select>
+                                                    </div>
+                                                    <div class="form-group area">
+                                                        <select class="form-control" id="district1"></select>-->
+                                                <!--</div>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label for="inputJob" class="control-label">职业：</label>
-                                        <div class="controls"><span class="sui-dropdown dropdown-bordered select"><span class="dropdown-inner"><a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                                <input name="job" type="hidden" data-rules="required"><i class="caret"></i><span>请选择</span></a>
-                                            <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="bj">程序员</a></li>
+                                        <div class="controls">
+
+
+                                            <!--    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="bj">程序员</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">产品经理</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">UI设计师</a></li>
-                                            </ul>
-                                            </span>
-                                            </span>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">UI设计师</a></li>-->
+													 <select class="form-control select-sm"  ng-model="entity.qq"  ng-options=" cause.id as cause.work for cause in causes">
+															 </select>
+
+
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label for="sanwei" class="control-label"></label>
                                         <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">立即注册</button>
+                                            <button type="submit" class="sui-btn btn-primary" ng-click="$scope.aa={};save()">保存</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div id="two" class="tab-pane">
-
                                 <div class="new-photo">
                                     <p>当前头像：</p>
                                     <div class="upload">
-                                        <img id="imgShow_WU_FILE_0" width="100" height="100" src="img/_/photo_icon.png" alt="">
-                                        <input type="file" id="up_img_WU_FILE_0" />
+                                        <img id="imgShow_WU_FILE_0" width="100" height="100" src="{{entity.headPic}}" alt="">
+                                        <input type="file" id="file" />
+										<input type="button" ng-click="uploadFile()" value="确认"/>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

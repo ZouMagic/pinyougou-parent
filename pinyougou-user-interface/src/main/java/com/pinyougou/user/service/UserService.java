@@ -1,8 +1,16 @@
 package com.pinyougou.user.service;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
+
+import com.pinyougou.pojo.TbAreas;
+import com.pinyougou.pojo.TbCities;
+import com.pinyougou.pojo.TbProvinces;
 import com.pinyougou.pojo.TbUser;
 
 import entity.PageResult;
+import entity.Result;
+
 /**
  * 服务层接口
  * @author Administrator
@@ -72,5 +80,15 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean checkSmsCode(String phone,String code);
-	
+	//查询指定用户名的数据
+	public TbUser initial(String username) throws ParseException;
+	//查询省
+	List<TbProvinces> province();
+	//查市
+	List<TbCities> city(String provinceId);
+	//查区
+	List<TbAreas> areas(String cityId);
+	//修改
+	void save(TbUser user);
+
 }

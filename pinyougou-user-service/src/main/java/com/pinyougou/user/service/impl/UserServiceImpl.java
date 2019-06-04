@@ -1,22 +1,4 @@
 package com.pinyougou.user.service.impl;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MapMessage;
-import javax.jms.Message;
-import javax.jms.Session;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
-
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -26,8 +8,19 @@ import com.pinyougou.pojo.TbUser;
 import com.pinyougou.pojo.TbUserExample;
 import com.pinyougou.pojo.TbUserExample.Criteria;
 import com.pinyougou.user.service.UserService;
-
 import entity.PageResult;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+
+import javax.jms.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 服务实现层
@@ -190,13 +183,11 @@ public class UserServiceImpl implements UserService {
 				message.setString("template_code", template_code);//验证码
 				message.setString("sign_name", sign_name);//签名
 				Map map=new HashMap();
-				map.put("number", smscode);				
+				map.put("code", smscode);
 				message.setString("param", JSON.toJSONString(map));
 				return message;
 			}
 		});
-		
-		
 	}
 
 	@Override

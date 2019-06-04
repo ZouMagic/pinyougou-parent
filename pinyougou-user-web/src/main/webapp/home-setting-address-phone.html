@@ -10,9 +10,16 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/service/safeService.js"></script>
+	<script type="text/javascript" src="js/service/passwordService.js"></script>
+	<script type="text/javascript" src="js/controller/safeController.js"></script>
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="safeController">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -310,45 +317,12 @@ $(function(){
                     </div>
                 </div>
                 <!--右侧主内容-->
-                <div class="yui3-u-5-6">
-                    <div class="body userSafe">
-                        <ul class="sui-nav nav-tabs nav-large nav-primary ">
-                            <li><a href="#one" data-toggle="tab">密码设置</a></li>
-                            <li class="active"><a href="#two" data-toggle="tab">绑定手机</a></li>
-                        </ul>
-                        <div class="tab-content ">
-                            <div id="one" class="tab-pane">
-                                <form class="sui-form form-horizontal sui-validate" id="jsForm">
-                                    <div class="control-group">
-                                        <label for="inputusername" class="control-label">用户名：</label>
-                                        <div class="controls">
-                                            <input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="输入昵称"
-                                                required data-msg-required="请输入昵称" minlength="6" data-msg-minlength="至少输入6个字符"
-                                            />
-
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputRepassword" class="control-label">重复密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">提交按钮</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                      <div class="yui3-u-5-6">
+					<div class="body userSafe">
+						<ul class="sui-nav nav-tabs nav-large nav-primary ">
+							<li><a href="" >密码修改</a></li>
+							</ul>
+							<div class="tab-pane">
                             <div id="two" class="tab-pane active">
                                 <!--步骤条-->
                                 <div class="sui-steps steps-auto">
@@ -370,39 +344,41 @@ $(function(){
                                 </div>
 
                                 <!--表单-->
+<form class="sui-form form-horizontal sui-validate" id="jsForm">
+									<div class="control-group">
+										<label for="inputusername" class="control-label">用户名：</label>
+										<div class="controls">
+											<input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="输入昵称"
+												   required data-msg-required="请输入昵称" minlength="6" data-msg-minlength="至少输入6个字符" ng-model="pwdid"
+											/>
 
-                                <form class="sui-form form-horizontal sui-validate" data-toggle='validate' id="phone-form">
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="inputPassword" class="control-label">密码：</label>
+										<div class="controls">
+											<input class="fn-tinput" type="password" name="password" ng-model="password" placeholder="新密码" required id="password" data-rule-remote="php.php">
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="inputRepassword" class="control-label">确认密码：</label>
+										<div class="controls">
+											<input class="fn-tinput" type="password" name="confirm_password" ng-model="pwd" placeholder="确认新密码" id="pwd" required equalTo="#password">
+										</div>
+									</div>
 
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">手机号：</label>
-                                        <div class="controls">
-                                            <input name="inputphone" type="text" id="inputphone" placeholder="请输入新手机号">
-                                        </div>                            
-                                    </div>
-                                     <div class="control-group">
-                                        <label for="inputcode" class="control-label">验证码：</label>
-                                        <div class="controls">
-                                            <input name="inputcode" type="text" id="inputcode">
-                                        </div>
-                                        <div class="controls">
-                                            验证码
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputRepassword" class="control-label">短信验证码：</label>
-                                        <div class="controls">
-                                            <input name="msgcode" type="text" id="msgcode">
-                                        </div>
-                                        <div class="controls">
-                                            <button class="sui-btn btn-info">发送</button>
-                                        </div>
-                                    </div>
+									<div class="control-group">
+										<label class="control-label"></label>
+										<div class="controls">
+										</div>
+									</div>
+									<div class="control-group next-btn">
+										<a class="sui-btn btn-primary" href="home-setting-safe.html">上一步</a>&nbsp;
+										<a class="sui-btn btn-primary" type="submit"  ng-click="change(pwdid,password,pwd)" >下一步</a>
+										<div>{{pwdid}}</div> <div>{{password}}</div> <div>{{pwd}}</div>
+									</div>
+								</form>
 
-                                    <div class="control-group next-btn">
-                                        <a class="sui-btn btn-primary" href="home-setting-safe.html">上一步</a>&nbsp;
-                                        <a class="sui-btn btn-primary" type="submit" href="home-setting-address-complete.html">下一步</a>
-                                    </div>
-                                </form>
                             </div>
                         </div>
 

@@ -27,6 +27,7 @@
     <!--这个是队列目的地，点对点的  文本信息-->  
 	<bean id="smsDestination" class="org.apache.activemq.command.ActiveMQQueue">  
 	    <constructor-arg value="sms"/>  
-	</bean>    
+	</bean>
+
 	
 </beans>

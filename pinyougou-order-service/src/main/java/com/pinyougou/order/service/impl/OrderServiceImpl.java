@@ -2,14 +2,10 @@ package com.pinyougou.order.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import entity.Excel;
-import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -363,7 +359,6 @@ public class OrderServiceImpl implements OrderService {
         //获取两个时间段的所有日期作为Key
         List<String> days = DateUtils.getDays(DateUtils.DateToString(start, "yyyy-MM-dd"), DateUtils.DateToString(end, "yyyy-MM-dd"));
 
-
         //构建返回集合
         for (int i = 0; i < days.size(); i++) {
 
@@ -380,7 +375,6 @@ public class OrderServiceImpl implements OrderService {
         for (TbOrder order : tbOrders) {
             Date createTime = order.getCreateTime();
             String createTimeStr = DateUtils.DateToString(createTime, "yyyy-MM-dd");
-
 
             for (int i = 0; i < days.size(); i++) {
                 String key = days.get(i);  //大Key
@@ -402,9 +396,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
         }
-
         System.out.println(map);
-
         return map;
     }
 

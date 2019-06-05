@@ -13,7 +13,7 @@ public interface CartService {
 
 	/**
 	 * 添加商品到购物车
-	 * @param list
+	 * @param
 	 * @param itemId
 	 * @param num
 	 * @return

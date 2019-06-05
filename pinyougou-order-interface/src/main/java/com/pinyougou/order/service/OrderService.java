@@ -1,9 +1,14 @@
 package com.pinyougou.order.service;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import com.pinyougou.pojo.TbOrder;
 import com.pinyougou.pojo.TbPayLog;
 
 import entity.PageResult;
+import entity.Result;
+
 /**
  * 服务层接口
  * @author Administrator
@@ -16,26 +21,26 @@ public interface OrderService {
 	 * @return
 	 */
 	public List<TbOrder> findAll();
-	
-	
+
+
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
 	public PageResult findPage(int pageNum,int pageSize);
-	
-	
+
+
 	/**
 	 * 增加
 	*/
 	public void add(TbOrder order);
-	
-	
+
+
 	/**
 	 * 修改
 	 */
 	public void update(TbOrder order);
-	
+
 
 	/**
 	 * 根据ID获取实体
@@ -43,8 +48,8 @@ public interface OrderService {
 	 * @return
 	 */
 	public TbOrder findOne(Long id);
-	
-	
+
+
 	/**
 	 * 批量删除
 	 * @param ids
@@ -58,21 +63,35 @@ public interface OrderService {
 	 * @return
 	 */
 	public PageResult findPage(TbOrder order, int pageNum,int pageSize);
-	
+
 	/**
 	 * 根据用户ID获取支付日志
 	 * @param userId
 	 * @return
 	 */
 	public TbPayLog searchPayLogFromRedis(String userId);
-	
-	
+
+
 	/**
 	 * 支付成功修改状态
 	 * @param out_trade_no
 	 * @param transaction_id
 	 */
 	public void updateOrderStatus(String out_trade_no,String transaction_id);
-	
-	
+
+
+	/**
+	 * 数据导出 --》  Excel
+	 * @param order
+	 * @return
+	 */
+	public void exportExcel(TbOrder order);
+
+	/**
+	 * 根据时间查询订单
+	 * @return
+	 */
+	public List<TbOrder> findDateByOrder(Date start,Date end);
+
+	public Map<String, Integer[]> findDateByOrderType(Date start, Date end);
 }

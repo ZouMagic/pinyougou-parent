@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+
 </head>
 
 <body>
@@ -186,42 +188,9 @@ $(function(){
                 <div class="yui3-u-5-6">
                     <div class="body userSafe">
                         <ul class="sui-nav nav-tabs nav-large nav-primary ">
-                            <li><a href="#one" data-toggle="tab">密码设置</a></li>
-                            <li class="active"><a href="#two" data-toggle="tab">绑定手机</a></li>
+                            <li class="active"><a data-toggle="tab">绑定手机</a></li>
                         </ul>
                         <div class="tab-content ">
-                            <div id="one" class="tab-pane">
-                                <form class="sui-form form-horizontal sui-validate" id="jsForm">
-                                    <div class="control-group">
-                                        <label for="inputusername" class="control-label">用户名：</label>
-                                        <div class="controls">
-                                            <input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="输入昵称"
-                                                required data-msg-required="请输入昵称" minlength="6" data-msg-minlength="至少输入6个字符"
-                                            />
-
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputRepassword" class="control-label">重复密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">提交按钮</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
                             <div id="two" class="tab-pane active">
                                 <!--步骤条-->
                                 <div class="sui-steps steps-auto">
@@ -250,7 +219,7 @@ $(function(){
                                         </div>
                                         <div class="text">
                                             <p class="success">恭喜你，新手机绑定成功！</p>
-                                            <p class="back"><a href="home-setting-safe.html">返回首页</a></p>
+                                            <p class="back"><a href="http://localhost:9100/cas/logout">返回首页</a></p>
                                         </div>
                                     </div>
                                    

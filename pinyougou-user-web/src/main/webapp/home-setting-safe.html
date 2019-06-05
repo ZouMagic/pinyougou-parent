@@ -10,9 +10,18 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/service/safeService.js"></script>
+	<script type="text/javascript" src="js/service/passwordService.js"></script>
+	<script type="text/javascript" src="js/controller/safeController.js"></script>
+
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="safeController" ng-init="initPhone()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -313,101 +322,56 @@ $(function(){
                 <div class="yui3-u-5-6">
                     <div class="body userSafe">
                         <ul class="sui-nav nav-tabs nav-large nav-primary ">
-                            <li class="active"><a href="#one" data-toggle="tab">密码设置</a></li>
-                            <li><a href="#two" data-toggle="tab">绑定手机</a></li>
-                        </ul>
-                        <div class="tab-content ">
-                            <div id="one" class="tab-pane active">
-                                <form class="sui-form form-horizontal sui-validate" id="jsForm">
-                                    <div class="control-group">
-                                        <label for="inputusername" class="control-label">用户名：</label>
-                                        <div class="controls">
-                                            <input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="输入昵称"
-                                                required data-msg-required="请输入昵称" minlength="6" data-msg-minlength="至少输入6个字符"
-                                            />
+                            <li><a href="" data-toggle="tab">手机验证</a></li>
+							<div class="tab-pane">
+								<!--步骤条-->
+								<div class="sui-steps steps-auto">
+									<div class="wrap">
+										<div class="finished">
+											<label><span class="round"><i class="sui-icon icon-pc-right"></i></span><span>第一步 验证身份</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+										</div>
+									</div>
+									<div class="wrap">
+										<div class="todo">
+											<label><span class="round">2</span><span>第二步 修改密码</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+										</div>
+									</div>
+									<div class="wrap">
+										<div class="todo">
+											<label><span class="round">3</span><span>第三步 完成</span></label>
+										</div>
+									</div>
+								</div>
 
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputRepassword" class="control-label">重复密码：</label>
-                                        <div class="controls">
-                                            <input class="fn-tinput" type="password" name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
-                                        </div>
-                                    </div>
+								<!--表单-->
 
-                                    <div class="control-group">
-                                        <label class="control-label"></label>
-                                        <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">提交按钮</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="two" class="tab-pane">
-                                <!--步骤条-->
-                                <div class="sui-steps steps-auto">
-                                    <div class="wrap">
-                                        <div class="finished">
-                                        <label><span class="round"><i class="sui-icon icon-pc-right"></i></span><span>第一步 验证身份</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="wrap">
-                                        <div class="todo">
-                                        <label><span class="round">2</span><span>第二步 绑定新手机号</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="wrap">
-                                        <div class="todo">
-                                        <label><span class="round">3</span><span>第三步 完成</span></label>
-                                        </div>
-                                    </div>
-                                </div>
+								<form class="sui-form form-horizontal sui-validate" data-toggle='validate' id="bind-form">
 
-                                <!--表单-->
-
-                                <form class="sui-form form-horizontal sui-validate" data-toggle='validate' id="bind-form">
-
-                                    <div class="control-group">
-                                        <label for="inputPassword" class="control-label">验证方式：</label>
-                                        <div class="controls fixed">手机验证（138****9856）</div>                            
-                                    </div>
-                                     <div class="control-group">
-                                        <label for="inputcode" class="control-label">验证码：</label>
-                                        <div class="controls">
-                                            <input name="inputcode" type="text" id="inputcode">
-                                        </div>
-                                        <div class="controls">
-                                            验证码
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label for="inputRepassword" class="control-label">短信验证码：</label>
-                                        <div class="controls">
-                                            <input name="msgcode" type="text" id="msgcode">
-                                        </div>
-                                        <div class="controls">
-                                            <button class="sui-btn btn-info">发送</button>
-                                        </div>
-                                    </div>
-                                    <div class="control-group next-btn">
-                                        <a class="sui-btn btn-primary" href="home-setting-address-phone.html">下一步</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+									<div class="control-group">
+										<label for="inputPassword" class="control-label">验证方式：</label>
+										<div class="controls fixed"><span>手机号码：{{phone}}</span></div>
+									</div>
+									<div class="control-group">
+										<label for="inputRepassword" class="control-label">短信验证码：</label>
+										<div class="controls">
+											<input name="msgcode" type="text" ng-model="msgcode" id="msgcode">
+										</div>
+										<div class="controls">
+											<button class="sui-btn btn-info" ng-click="sendCode()">发送</button>
+										</div>
+									</div>
+									<div class="control-group next-btn">
+										<a class="sui-btn btn-primary"  ng-click="checkCode(phone,msgcode)"  >下一步</a>
+									</div>
+								</form>
+							</div>
+						</ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 底部栏位 -->
+    <!-- 底部栏位 -->  `
     <!--页面底部-->
 <div class="clearfix footer">
 	<div class="py-container">

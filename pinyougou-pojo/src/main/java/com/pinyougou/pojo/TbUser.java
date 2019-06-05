@@ -46,6 +46,8 @@ public class TbUser implements Serializable{
 
     private Date birthday;
 
+    private String birthdayStr;
+
     private Date lastLoginTime;
 
     public Long getId() {
@@ -222,5 +224,14 @@ public class TbUser implements Serializable{
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getBirthdayStr() {
+        return birthdayStr;
+    }
+
+    public void setBirthdayStr(String birthdayStr) {
+
+        this.birthdayStr = birthdayStr;
     }
 }

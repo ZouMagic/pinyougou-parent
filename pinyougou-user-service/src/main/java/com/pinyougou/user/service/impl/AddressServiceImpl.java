@@ -39,6 +39,7 @@ public class AddressServiceImpl implements AddressService {
 		PageHelper.startPage(pageNum, pageSize);		
 		Page<TbAddress> page=   (Page<TbAddress>) addressMapper.selectByExample(null);
 		return new PageResult(page.getTotal(), page.getResult());
+
 	}
 
 	/**

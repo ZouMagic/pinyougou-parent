@@ -21,8 +21,8 @@
     <script src="../js/echarts.min.js"></script>
 
     <script>
-        var startDate = '2019-05-29';  //开始时间
-        var endDate = '2019-06-05';  //结束时间
+        var startDate = '';  //开始时间
+        var endDate = '';  //结束时间
         var DateArray = [];
         var statusType1 = [];  //待付款订单
         var statusType2 = [];  //待发货订单
@@ -36,6 +36,8 @@
             var start = {}, end = {};
             //开始日期
             jeDate('#inpstart', {
+                isinitVal: true,
+                initDate: [{hh: 10, mm: 00, ss: 00}, false],
                 format: 'YYYY-MM-DD',
                 minDate: '2014-06-16', //设定最小日期为当前日期
                 shortcut: [
@@ -185,6 +187,8 @@
 
         //获取柱状图
         function getHistogram(startDate, endDate) {
+            /*alert("开始时间：" + startDate);
+            alert("结束时间：" + endDate);*/
             //key
             var keyArray = [];
             $.ajax({
@@ -197,7 +201,9 @@
                 },
                 success: function (data) {
                     //获取所有的日期
+                    //设置初始日期和时间
                     DateArray = getAll(startDate, endDate);
+
                     DateArray.splice(DateArray.length);
                     for (var i = 0; i < DateArray.length; i++) {
                         var numberArr = data[DateArray[i]];
@@ -215,8 +221,8 @@
                                 statusType4.push(numberArr[j]);
                             } else if (j == 4) {
                                 statusType5.push(numberArr[j]);
-                            }else{
-                               break;
+                            } else {
+                                break;
                             }
                         }
                     }
@@ -310,6 +316,7 @@
         //获取开始时间与结束时间的订单
         function getOrderByDate() {
             getPic(startDate, endDate);
+            getHistogram(startDate, endDate);
         }
 
 
@@ -325,6 +332,21 @@
         };
 
         function getAll(begin, end) {
+            //设置默认值7天
+            if (begin == '' && end == '') {
+                //获取系统当前时间
+                var nowdate = new Date();
+                var y = nowdate.getFullYear();
+                var m = nowdate.getMonth()+1;
+                var d = nowdate.getDate();
+                end = y+'-'+m+'-'+d;
+                //获取系统前一周的时间
+                var oneweekdate = new Date(nowdate-6*24*3600*1000);
+                var y = oneweekdate.getFullYear();
+                var m = oneweekdate.getMonth()+1;
+                var d = oneweekdate.getDate();
+                begin = y+'-'+m+'-'+d;
+            }
             var arr = [];
             var ab = begin.split("-");
             var ae = end.split("-");

@@ -195,7 +195,7 @@ public class OrderController {
         }
 
         if (start == null || start.length() <= 0) { //开始时间
-            startDate = DateUtils.getPastDate(7);
+            startDate = DateUtils.getPastDate(6);  //默认时间 一周前  现在
         } else {
             startDate = DateUtils.StringToDate(start, "yyyy-MM-dd");
         }
